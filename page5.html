@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كل عام وأنت بخير 💖</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #49769F, #0A4174, #001D39);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .container {
+            background: #BDD8E9;
+            padding: 25px 15px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            margin: 10px auto;
+            box-sizing: border-box;
+            border: 2px solid #6EA2B3;
+        }
+
+        /* --- منطقة أنميشن التورتة --- */
+        .video-cake-wrapper {
+            width: 100%;
+            height: 190px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        /* شريط التحميل (Loader) في البداية */
+        .loader-bar {
+            width: 160px;
+            height: 6px;
+            background: rgba(10, 65, 116, 0.2);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: opacity 0.3s ease;
+        }
+        .loader-fill {
+            width: 0%;
+            height: 100%;
+            background: #0A4174;
+            border-radius: 10px;
+            transition: width 1.2s ease-in-out;
+        }
+
+        /* هيكل التورتة - مهيأ للتفاعل والضغط */
+        .cake-build {
+            position: relative;
+            width: 180px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            margin-top: 10px;
+            cursor: pointer;
+            pointer-events: none; /* مقفل حتى يكتمل ظهور التورتة */
+            transition: transform 0.2s ease;
+        }
+        
+        /* أنميشن نبض لجذب الانتباه وجعل التورتة تطلب الضغط */
+        .cake-build.ready-to-click {
+            pointer-events: auto;
+            animation: pulse-hint 1.5s infinite ease-in-out;
+        }
+        
+        .cake-build:active {
+            transform: scale(0.95);
+        }
+
+        @keyframes pulse-hint {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(10, 65, 116, 0.2)); }
+            50% { transform: scale(1.06); filter: drop-shadow(0 0 15px rgba(78, 142, 162, 0.7)); }
+        }
+
+        /* الطبقة السفلية الكحلية */
+        .layer-bottom {
+            width: 140px;
+            height: 35px;
+            background: #49769F;
+            border-radius: 8px 8px 4px 4px;
+            box-shadow: inset 0 -5px 0 rgba(0,0,0,0.15);
+            opacity: 0;
+            transform: translateY(-60px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+
+        /* الطبقة العلوية البيضاء */
+        .layer-top {
+            width: 110px;
+            height: 30px;
+            background: #ffffff;
+            border-radius: 6px 6px 2px 2px;
+            box-shadow: inset 0 -5px 0 rgba(0,0,0,0.05);
+            position: relative;
+            opacity: 0;
+            transform: translateY(-60px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.4s ease;
+        }
+        .layer-top::after {
+            content: '';
+            position: absolute;
+            bottom: -5px; left: 10px; right: 10px;
+            height: 8px;
+            background: #ffffff;
+            border-radius: 0 0 5px 5px;
+        }
+
+        /* الأنميشن النشط عند النزول */
+        .layer-bottom.drop, .layer-top.drop {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* الشمعة */
+        .cake-candle {
+            width: 6px;
+            height: 22px;
+            background: linear-gradient(to bottom, #0A4174, #BDD8E9);
+            border-radius: 2px;
+            position: relative;
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.3s ease;
+        }
+        .cake-candle.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* لهب الشمعة */
+        .cake-flame {
+            position: absolute;
+            width: 10px;
+            height: 14px;
+            background: #ff9d00;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: -16px;
+            left: -2px;
+            box-shadow: 0 0 10px #ff9d00, 0 0 20px #ffea00;
+            opacity: 0;
+        }
+        .cake-flame.ignite {
+            opacity: 1;
+            animation: flicker 0.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% { transform: scale(1); opacity: 0.9; }
+            100% { transform: scale(1.15) skewX(2deg); opacity: 1; }
+        }
+
+        /* نص التهنئة الإنجليزي المشع */
+        .hb-title {
+            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            color: #0A4174;
+            font-size: 1.6rem;
+            font-weight: bold;
+            margin-top: 15px;
+            text-shadow: 0 0 8px rgba(255,255,255,0.7);
+            opacity: 0;
+            transform: scale(0.7);
+            direction: ltr;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .hb-title.pop {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* --- صندوق الرسالة الشاعرية --- */
+        .message-box {
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 15px;
+            padding: 22px;
+            margin-top: 15px;
+            border: 1px solid #4E8EA2;
+            min-height: 180px;
+            text-align: right;
+        }
+
+        .text-line {
+            color: #001D39;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin: 0;
+            font-weight: 500;
+            white-space: pre-line;
+            display: inline-block;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 3px;
+            background-color: #0A4174;
+            margin-right: 3px;
+            animation: blink 0.8s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        .end-btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #0A4174, #49769F);
+            color: #BDD8E9;
+            text-decoration: none;
+            padding: 11px 28px;
+            border-radius: 25px;
+            font-weight: bold;
+            margin-top: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            font-size: 0.95rem;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(10px);
+        }
+
+        .end-btn.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+            transition: all 0.8s ease-out;
+        }
+        .end-btn:hover { transform: scale(1.05); }
+
+        @media (max-width: 480px) {
+            .text-line { font-size: 0.98rem; line-height: 1.6; }
+            .hb-title { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" src="sound.mp3" loop preload="auto"></audio>
+
+    <div class="container">
+        <div class="video-cake-wrapper">
+            <div class="loader-bar" id="loaderBar">
+                <div class="loader-fill" id="loaderFill"></div>
+            </div>
+
+            <div class="cake-build" id="cakeContainer" onclick="startSurprise()">
+                <div class="cake-candle" id="candle"><div class="cake-flame" id="flame"></div></div>
+                <div class="layer-top" id="layerTop"></div>
+                <div class="layer-bottom" id="layerBottom"></div>
+            </div>
+
+            <div class="hb-title" id="hbTitle">Happy Birthday !</div>
+        </div>
+
+        <div class="message-box">
+            <p id="hint-text" style="color: #0A4174; margin: 0; font-weight: bold; text-align: center; font-size: 1.2rem; animation: blink 1.2s infinite;">     🎂✨Click the cake to open your gift</p>
+            <span id="typed-text" class="text-line"></span><span id="typing-cursor" class="cursor" style="display: none;">|</span>
+        </div>
+        
+        <a href="page6.html" id="action-btn" class="end-btn">     ❤️✨Let's See What's Next</a>
+    </div>
+
+    <script>
+        const message = `في مثل هذا اليوم ولد شخصٌ لا يعلم كم ترك في قلبٍ آخر من أثر.
+
+كل عام وأنت بخير، وأرجو أن يحمل لك عامك الجديد من الطمأنينة بقدر ما تستحق ومن الفرح ما يليق بقلبك وأن يهبك الله أيامًا تجبر خاطرك وأحلامًا تجد طريقها إليك دون عناء.
+
+لا أتمنى لك الأشياء العظيمة فحسب بل أتمنى أن تبقى روحك كما هي؛ نقية ،هادئة وقادرة على أن تُضيء حياة من حولها دون أن تشعر.
+
+شكرًا لأنك كنت جزءًا جميلًا من أيامي، حتى وإن كنت لا تعلم مقدار ذلك.
+
+كل عام وأنت بخير... ولعل هذا العام يكون أكثر الأعوام لطفًا بك، وأقربها إلى قلبك.`;
+
+        let index = 0;
+        const speed = 40; 
+        const typedTextElement = document.getElementById('typed-text');
+        const cursorElement = document.getElementById('typing-cursor');
+        const btnElement = document.getElementById('action-btn');
+        const hintTextElement = document.getElementById('hint-text');
+        const cakeContainer = document.getElementById('cakeContainer');
+        const audio = document.getElementById('bgMusic');
+        let surpriseStarted = false;
+
+        function typeWriter() {
+            if (index < message.length) {
+                typedTextElement.textContent += message.charAt(index);
+                index++;
+                setTimeout(typeWriter, speed);
+            } else {
+                cursorElement.style.display = 'none';
+                btnElement.classList.add('show');
+            }
+        }
+
+        // الدالة المسؤولة عن التشغيل بمجرد لمس أو ضغط التورتة
+        function startSurprise() {
+            if (surpriseStarted) return; // منع تكرار التشغيل عند الضغط المتعدد
+            surpriseStarted = true;
+
+            // 1. إلغاء أنميشن النبض وقفل الضغط مجدداً
+            cakeContainer.classList.remove('ready-to-click');
+            cakeContainer.style.pointerEvents = 'none';
+
+            // 2. إخفاء نص الإرشاد وإظهار مؤشر الكتابة
+            hintTextElement.style.display = 'none';
+            cursorElement.style.display = 'inline-block';
+
+            // 3. تشغيل الساوند فوراً وبصوت كامل
+            audio.volume = 1.0;
+            audio.play().then(() => {
+                console.log("تم تشغيل الصوت بنجاح مع تفاعل المستخدم!");
+            }).catch(error => {
+                console.log("فشل تشغيل الصوت برغم الضغط:", error);
+            });
+
+            // 4. البدء الفوري في طباعة الرسالة
+            typeWriter();
+        }
+
+        window.onload = function() {
+            const fill = document.getElementById('loaderFill');
+            const bar = document.getElementById('loaderBar');
+            const bottom = document.getElementById('layerBottom');
+            const top = document.getElementById('layerTop');
+            const candle = document.getElementById('candle');
+            const flame = document.getElementById('flame');
+            const title = document.getElementById('hbTitle');
+
+            setTimeout(() => { fill.style.width = '100%'; }, 100);
+
+            setTimeout(() => {
+                bar.style.opacity = '0';
+                setTimeout(() => bar.style.display = 'none', 300);
+                bottom.classList.add('drop');
+            }, 1400);
+
+            setTimeout(() => { top.classList.add('drop'); }, 1900);
+            setTimeout(() => { candle.classList.add('show'); }, 2400);
+            setTimeout(() => { flame.classList.add('ignite'); }, 2800);
+            setTimeout(() => { 
+                title.classList.add('pop'); 
+                
+                // هنا تكتمل التورتة، نفتح إمكانية الضغط ونفعل أنميشن النبض
+                cakeContainer.classList.add('ready-to-click');
+            }, 3300);
+        };
+    </script>
+</body>
+</html>

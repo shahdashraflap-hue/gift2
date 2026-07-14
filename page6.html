@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المفاجأة الأخيرة 💙✨</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #001D39, #0A4174, #49769F);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+
+        /* مسرح القلب التفاعلي */
+        .heart-wrapper {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+
+        /* شكل قلب واحد حقيقي ومظبوط بالـ CSS */
+        .giant-heart {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background-color: #BDD8E9; /* اللون اللبني المتناسق */
+            transform: rotate(-45deg);
+            box-shadow: -10px 10px 30px rgba(0, 0, 0, 0.3);
+            animation: pulse 1.2s infinite ease-in-out;
+            transition: all 0.5s ease;
+        }
+
+        /* ضبط الدوائر العلوية عشان تلتحم وتعمل قلب واحد بالظبط */
+        .giant-heart::before,
+        .giant-heart::after {
+            content: "";
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background-color: #BDD8E9;
+            border-radius: 50%;
+        }
+
+        /* الدائرة اليسرى */
+        .giant-heart::before {
+            top: -70px;
+            left: 0;
+        }
+
+        /* الدائرة اليمنى */
+        .giant-heart::after {
+            top: 0;
+            left: 70px;
+        }
+
+        /* أنميشن النبض لقلب واحد ثابت ومستقر */
+        @keyframes pulse {
+            0% { transform: rotate(-45deg) scale(1); filter: drop-shadow(0 0 5px rgba(189, 216, 233, 0.4)); }
+            50% { transform: rotate(-45deg) scale(1.08); filter: drop-shadow(0 0 25px rgba(189, 216, 233, 0.8)); }
+            100% { transform: rotate(-45deg) scale(1); filter: drop-shadow(0 0 5px rgba(189, 216, 233, 0.4)); }
+        }
+
+        /* نص التوجيه السنتر تماماً فوق القلب */
+        .heart-text {
+            position: absolute;
+            color: #001D39; /* كحلي غامق واضح جداً */
+            font-size: 1.3rem;
+            font-weight: bold;
+            z-index: 5;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            width: 180px;
+            line-height: 1.4;
+            top: 45%; /* لضبط التوسط الرأسي داخل تجويف القلب */
+            transform: translateY(-50%);
+        }
+
+        /* حاوية الفيديو الأنيقة */
+        .video-container {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            border: 4px solid #BDD8E9;
+            display: none;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 30px;
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        /* زرار العودة للرئيسية */
+        .back-home-btn {
+            background: linear-gradient(45deg, #BDD8E9, #6EA2B3);
+            color: #001D39;
+            text-decoration: none;
+            padding: 13px 35px;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+            width: 85%;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(20px);
+        }
+
+        .back-home-btn.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        .back-home-btn:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <!-- القلب الواحد النابض -->
+        <div class="heart-wrapper" id="heartWrapper" onclick="revealVideo()">
+            <div class="giant-heart" id="giantHeart"></div>
+            <div class="heart-text" id="heartText">   😉❤️Click for the final surprise</div>
+        </div>
+
+        <!-- صندوق الفيديو المخفي -->
+        <div class="video-container" id="videoContainer">
+            <video id="video22" src="video22.mp4" controls playsinline></video>
+        </div>
+
+        <!-- زرار العودة للرئيسية -->
+        <a href="index.html" class="back-home-btn" id="homeBtn">Back to Home</a>
+    </div>
+
+    <script>
+        function revealVideo() {
+            const heartWrapper = document.getElementById('heartWrapper');
+            const videoContainer = document.getElementById('videoContainer');
+            const lastVideo = document.getElementById('lastVideo');
+            const homeBtn = document.getElementById('homeBtn');
+
+            // إخفاء القلب بتأثير ناعم
+            heartWrapper.style.opacity = '0';
+            heartWrapper.style.transform = 'scale(0.5)';
+            
+            setTimeout(() => {
+                heartWrapper.style.display = 'none';
+
+                // إظهار الفيديو وتشغيله تلقائياً
+                videoContainer.style.display = 'block';
+                setTimeout(() => {
+                    videoContainer.style.opacity = '1';
+                    videoContainer.style.transform = 'scale(1)';
+                    lastVideo.play();
+                }, 50);
+
+                // إظهار زرار العودة
+                setTimeout(() => {
+                    homeBtn.classList.add('show');
+                }, 600);
+
+            }, 500);
+        }
+    </script>
+</body>
+</html>

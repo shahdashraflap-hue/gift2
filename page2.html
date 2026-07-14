@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ذكرى خاصة ✨</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #001D39, #4E8EA2);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 15px;
+            box-sizing: border-box;
+        }
+        .content-box {
+            background: rgba(189, 216, 233, 0.95);
+            padding: 40px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            border: 2px solid #7BBDE8;
+            backdrop-filter: blur(5px);
+            box-sizing: border-box;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        .sweet-text { color: #001D39; font-size: 1.4rem; line-height: 1.7; font-weight: 600; margin-bottom: 35px; }
+        .highlight { color: #0A4174; font-weight: bold; }
+        .ready-btn {
+            background: linear-gradient(45deg, #0A4174, #49769F); color: #BDD8E9; border: none;
+            padding: 12px 40px; font-size: 1.15rem; font-weight: bold; border-radius: 30px;
+            cursor: pointer; box-shadow: 0 5px 15px rgba(10, 65, 116, 0.4);
+            transition: all 0.3s ease; text-decoration: none; display: inline-block; animation: pulse 2s infinite;
+        }
+        .ready-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(10, 65, 116, 0.6); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+
+        @media (max-width: 480px) {
+            .sweet-text { font-size: 1.2rem; line-height: 1.6; }
+            .ready-btn { font-size: 1rem; padding: 10px 35px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="content-box">
+      <p class="sweet-text" style="direction: ltr; unicode-bidi: isolate; font-size: 1.3rem;">
+            .. This is not just a website<br>
+            <span class="highlight" style="font-size: 1.4rem; display: inline-block; margin: 5px 0;">This is a memory</span><br>
+            I built for you<br>
+            <span class="highlight" style="font-size: 1.4rem; display: inline-block; margin: 5px 0;">Only for you</span> ❤️
+        </p>
+        <a href="page3.html" class="ready-btn"> ? ready ✨</a>
+    </div>
+</body>
+</html>
