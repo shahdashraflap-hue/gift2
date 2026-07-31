@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سماء الرسائل والنجوم 🌌✨</title>
+    <style>
+        /* --- تنسيق الزر الفخم للانتقال للصفحة الخامسة --- */
+        .end-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #0A4174, #49769F); /* تدرج الألوان المتناسق مع كحلي ولبني */
+            color: #ffffff;
+            text-decoration: none;
+            padding: 14px 35px;
+            border-radius: 50px; /* زوايا انسيابية مستديرة بالكامل */
+            font-weight: bold;
+            font-size: 1rem;
+            margin-top: 25px;
+            border: 2px solid #BDD8E9; /* تحديد هادئ بلون لبني فاتح */
+            box-shadow: 0 5px 15px rgba(10, 65, 116, 0.3); /* ظل ناعم لخلق عمق */
+            letter-spacing: 0.5px;
+            opacity: 0; /* يبدأ مخفي ويظهر تلقائياً عبر JS بعد اختيار نجمة */
+            pointer-events: none;
+            transform: translateY(15px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* تأثيرات مرور الماوس (Hover) */
+        .end-btn:hover {
+            background: linear-gradient(135deg, #49769F, #0A4174); /* قلب التدرج اللوني للحركة */
+            transform: translateY(-3px) scale(1.03); /* يرتفع ويكبر قليلاً بمرونة */
+            box-shadow: 0 8px 25px rgba(10, 65, 116, 0.5), 0 0 15px rgba(189, 216, 233, 0.6); /* تأثير Glow وتوهج لبني ساحر حول الزر */
+            border-color: #ffffff; /* يتحول الإطار للون الأبيض الصافي */
+        }
+
+        /* تأثير الضغط الفعلي */
+        .end-btn:active {
+            transform: translateY(-1px) scale(0.99);
+            box-shadow: 0 4px 10px rgba(10, 65, 116, 0.4);
+        }
+
+        /* فئة التفعيل لإظهار الزر بعد اكتمال النص */
+        .end-btn.show {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+
+        body {
+            background: linear-gradient(to bottom, #001D39, #0A4174);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh; margin: 0; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; overflow-x: hidden; color: #BDD8E9; padding: 15px; box-sizing: border-box;
+        }
+        h2 { color: #7BBDE8; text-shadow: 0 0 10px rgba(123, 189, 232, 0.4); font-size: 1.4rem; margin-bottom: 8px; text-align: center; line-height: 1.4; }
+        .subtitle { color: #6EA2B3; margin-bottom: 30px; font-size: 0.95rem; text-align: center; font-weight: bold; }
+        
+        .stars-container { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; flex-wrap: wrap; }
+        .star-btn {
+            font-size: 2.8rem; cursor: pointer; background: none; border: none; outline: none;
+            transition: transform 0.3s ease, filter 0.3s ease; filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+            animation: twinkle 2s infinite ease-in-out; padding: 0;
+        }
+        .star-btn:nth-child(1) { animation-delay: 0s; }
+        .star-btn:nth-child(2) { animation-delay: 0.4s; }
+        .star-btn:nth-child(3) { animation-delay: 0.8s; }
+        .star-btn:nth-child(4) { animation-delay: 1.2s; }
+        .star-btn:nth-child(5) { animation-delay: 1.6s; }
+        
+        /* عند الضغط النجوم هتنور باللون السماوي الساطع */
+        .star-btn:hover, .star-btn.active { transform: scale(1.2); filter: drop-shadow(0 0 15px #7BBDE8) brightness(1.3); }
+        
+        .message-box {
+            background: rgba(189, 216, 233, 0.15); border: 2px solid #4E8EA2; backdrop-filter: blur(10px);
+            padding: 25px 20px; border-radius: 20px; width: 100%; max-width: 500px; min-height: 120px;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); opacity: 0; transform: translateY(20px); transition: all 0.5s ease;
+            box-sizing: border-box;
+        }
+        .message-box.show { opacity: 1; transform: translateY(0); border-color: #BDD8E9; }
+        #message-text { font-size: 1.1rem; line-height: 1.7; color: #BDD8E9; font-weight: 500; }
+        
+        @keyframes twinkle { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+
+        @media (max-width: 360px) {
+            .star-btn { font-size: 2.3rem; }
+            #message-text { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <h2> The sky is full of stars... and each star carries a word for you ✨</h2>
+    <p class="subtitle"> Touch the stars... each one is hiding a message just for you </p>
+
+    <div class="stars-container">
+        <button class="star-btn" onclick="showContent(0)">⭐</button>
+        <button class="star-btn" onclick="showContent(1)">⭐</button>
+        <button class="star-btn" onclick="showContent(2)">⭐</button>
+        <button class="star-btn" onclick="showContent(3)">⭐</button>
+        <button class="star-btn" onclick="showContent(4)">⭐</button>
+    </div>
+
+    <div class="message-box" id="msgBox">
+        <p id="message-text">اختار نجمة من فوق عشان تقرأ المكتوب جواها.. ✨</p>
+    </div>
+    
+    <div>
+        <a href="page5.html" id="action-btn" class="end-btn">❤️🌟Let's See What's Next</a>
+    </div>
+      
+    <script>
+        const myMessages = [
+            "شكراً ليك في كل مرة طبطبت فيها على قلبي.. ❤️",
+            "بضحك معاك من قلبي بدون ما أحس.. 🥰✨",
+            "  بعض الصدف وراها حياة وأنت أقرب مثال ..🥰❤️",
+            "أتمنى إن تكون الحياة لطيفة معاك، زي ما كنت لطيف دايماً معايا.. 🕊️💖",
+            "أوعى تنسى إن قلبي حبك بصدق، وكان ممتن لكل لحظة جمعته بيك.. 👑❤️"
+        ];
+
+        function showContent(index) {
+            const msgBox = document.getElementById('msgBox');
+            const msgText = document.getElementById('message-text');
+            const stars = document.querySelectorAll('.star-btn');
+            const btn = document.getElementById('action-btn'); // استدعاء الزرار
+
+            stars.forEach(star => star.classList.remove('active'));
+            stars[index].classList.add('active');
+            msgBox.classList.remove('show');
+
+            setTimeout(() => {
+                msgText.innerText = myMessages[index];
+                msgBox.classList.add('show');
+                btn.classList.add('show'); // إظهار الزر الفخم تلقائياً فور اختيار أي نجمة
+            }, 300);
+        }
+    </script>
+</body>
+</html>
