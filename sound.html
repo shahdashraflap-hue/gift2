@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>المرحلة الثانية 🔒</title>
+    <style>
+        body { background: linear-gradient(135deg, #001D39, #49769F); font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 15px; box-sizing: border-box; color: #BDD8E9; }
+        .card { background: #BDD8E9; padding: 30px 20px; border-radius: 25px; text-align: center; max-width: 450px; width: 100%; border: 2px solid #0A4174; }
+        .badge { background: #0A4174; color: #BDD8E9; padding: 6px 16px; border-radius: 20px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
+        h3 { color: #001D39; margin-bottom: 20px; }
+        input { width: 90%; padding: 12px; border: 2px solid #6EA2B3; border-radius: 25px; text-align: center; font-size: 1rem; margin-bottom: 10px; }
+        button, .next-btn { background: #0A4174; color: #BDD8E9; border: none; padding: 12px 25px; border-radius: 25px; cursor: pointer; font-weight: bold; width: 90%; font-size: 1rem; text-decoration: none; display: inline-block; margin-top: 15px; }
+        .error { color: #780000; font-weight: bold; margin-top: 10px; }
+        .content-box { margin-top: 20px; padding: 15px; background: rgba(10, 65, 116, 0.08); border-radius: 15px; border: 1px dashed #0A4174; }
+        .text { color: #001D39; font-weight: 600; line-height: 1.6; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="badge">المرحلة 2 من 4</div>
+        <h3>كان في أغنية قلت لك بفتكرك كل ما بسمعها؟ 🎵</h3>
+        
+        <div id="passArea">
+            <input type="text" id="passInput" placeholder="اكتب الاجابه  هنا...">
+            <button onclick="checkPass()"> متأكد؟ 🔓</button>
+            <div id="error" class="error"></div>
+        </div>
+
+        <div id="resultArea" style="display: none;">
+            <div class="content-box">
+                <p class="text">شطور، كويس إنك عرفت! اسمعها بقى وبعد كده ادخل على الخطوة اللي بعدا ✨</p>
+                <audio controls style="width: 100%; margin-top: 10px;">
+                    <source src="sound1.mp3" type="audio/mpeg">
+                    المتصفح لا يدعم التشغيل.
+                </audio>
+            </div>
+            <a href="massage.html" class="next-btn">الانتقال للسؤال التالي ➡️</a>
+        </div>
+    </div>
+
+    <script>
+        function checkPass() {
+            const input = document.getElementById('passInput').value.trim().toLowerCase();
+            const valid = ["على بالي", "على بالى", "على بالي ", "3la baly"];
+            if (valid.includes(input)) {
+                document.getElementById('passArea').style.display = 'none';
+                document.getElementById('resultArea').style.display = 'block';
+            } else {
+                document.getElementById('error').innerText = "😂 الكلمة  مش صح، ركز افتكر وممكن تكون حرف غلط (ى) مش (ي) في اول كلمه من الاغنيه والكلمه التانيه(ي) عادي  💔";
+            }
+        }
+    </script>
+</body>
+</html>
